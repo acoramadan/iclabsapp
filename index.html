@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICLABS - Integrated Computer Laboratory System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="iclabs.png" type="image/x-icon">
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <div class="loading-text">Loading ICLABS...</div>
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Grid Background -->
+    <div class="grid-background"></div>
+    
+    <!-- Blue Orbs -->
+    <div class="blue-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-rocket"></i>
+        <span id="toastMessage">Berhasil!</span>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <div class="logos-container">
+                    <!-- Logo Universitas Muslim Indonesia (Clickable) -->
+                    <a href="https://umi.ac.id/" target="_blank" class="logo-link" title="Universitas Muslim Indonesia">
+                        <div class="logo-box">
+                            <img src="umi.png" alt="Logo UMI"> 
+                            <div class="logo-placeholder">
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <div class="logo-connector"></div>
+                    
+                    <!-- Logo Fakultas Ilmu Komputer (Clickable) -->
+                    <a href="https://fikom.umi.ac.id" target="_blank" class="logo-link" title="Fakultas Ilmu Komputer">
+                        <div class="logo-box">
+                            <img src="fikom.png" alt="Logo FIKOM">
+                            <div class="logo-placeholder">
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <div class="logo-connector"></div>
+                    
+                    <!-- Logo ICLABS -->
+                    <div class="logo-box">
+                      <img src="iclabs.png" alt="Logo ICLABS">
+                        <div class="logo-placeholder">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="university-info">
+                    <h1>ICLABS</h1>
+                    <p>Universitas Muslim Indonesia - Fakultas Ilmu Komputer</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h2>Selamat Datang</h2>
+            <p>Integrated Computer Laboratory System - Platform terpadu untuk manajemen laboratorium komputer yang modern dan efisien</p>
+        </div>
+
+        <!-- Apps Grid -->
+        <div class="apps-grid">
+            <!-- App 1 - Sistem Informasi Lab -->
+            <a href="#" class="app-card" data-title="Sistem Informasi Lab">
+                <div class="app-icon">💻</div>
+                <h3>Sistem Informasi Lab</h3>
+                <p>Kelola informasi dan data laboratorium secara terpusat dan efisien</p>
+            </a>
+
+            <!-- App 2 - Sistem Informasi Sumber Daya -->
+            <a href="https://iclabs.fikom.umi.ac.id/" class="app-card" data-title="Sistem Informasi Sumber Daya">
+                <div class="app-icon">📊</div>
+                <h3>Sistem Informasi Sumber Daya</h3>
+                <p>Manajemen sumber daya laboratorium dengan sistem yang terintegrasi</p>
+            </a>
+
+            <!-- App 3 - Monitoring Asisten (CA) -->
+            <a href="#" class="app-card" data-title="Monitoring Asisten (CA)">
+                <div class="app-icon">👥</div>
+                <h3>Monitoring Asisten (CA)</h3>
+                <p>Pantau kinerja dan aktivitas asisten laboratorium secara real-time</p>
+            </a>
+
+            <!-- App 4 - Monitoring Praktikum -->
+            <a href="https://iclabs.fikom.umi.ac.id/s/monitoring-praktikum/" class="app-card" data-title="Monitoring Praktikum">
+                <div class="app-icon">📋</div>
+                <h3>Monitoring Praktikum</h3>
+                <p>Lacak dan kelola kegiatan praktikum dengan mudah dan terorganisir</p>
+            </a>
+
+            <!-- App 5 - Peminjaman Lab -->
+            <a href="#" class="app-card" data-title="Peminjaman Lab">
+                <div class="app-icon">🔑</div>
+                <h3>Peminjaman Lab</h3>
+                <p>Sistem peminjaman ruang laboratorium yang praktis dan terjadwal</p>
+            </a>
+
+            <!-- App 6 - Pendaftaran Asisten -->
+            <a href="https://iclabs.fikom.umi.ac.id/s/registrasi/login" class="app-card" data-title="Pendaftaran Asisten">
+                <div class="app-icon">📝</div>
+                <h3>Pendaftaran Asisten</h3>
+                <p>Daftar sebagai asisten laboratorium dengan proses yang cepat</p>
+            </a>
+
+            <!-- App 7 - Inventori Barang -->
+            <a href="#" class="app-card" data-title="Inventori Barang">
+                <div class="app-icon">📦</div>
+                <h3>Inventori Barang</h3>
+                <p>Kelola inventaris peralatan lab dengan sistem tracking modern</p>
+            </a>
+
+            <!-- App 8 - Pembayaran Lab -->
+            <a href="https://iclabs.fikom.umi.ac.id/s/SIPEMLA/" class="app-card" data-title="Pembayaran Lab">
+                <div class="app-icon">💳</div>
+                <h3>Pembayaran Lab</h3>
+                <p>Sistem pembayaran laboratorium yang aman dan transparan</p>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 ICLABS - Universitas Muslim Indonesia</p>
+            <p>Fakultas Ilmu Komputer. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <!-- Main JavaScript -->
+    <script src="script.js"> </script>
+</body>
+</html>

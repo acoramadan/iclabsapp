@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICLABS - Integrated Computer Laboratory System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-cyan: #3ff7ff;
+            --primary-blue: #0ea5e9;
+            --dark-blue: #0369a1;
+            --light-blue: #e0f2fe;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #ffffff 0%, #f0f9ff 50%, #e0f2fe 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle Grid Background */
+        .grid-background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Subtle Blue Orbs */
+        .blue-orbs {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            animation: floatOrb 20s infinite ease-in-out;
+        }
+
+        .orb:nth-child(1) {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--primary-cyan), transparent);
+            top: -15%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--primary-blue), transparent);
+            bottom: -10%;
+            left: -5%;
+            animation-delay: 5s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Clean White Header with Blue Accent */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            padding: 2rem 3rem;
+            background: #ffffff;
+            border-radius: 25px;
+            border: 2px solid var(--light-blue);
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideDown 1s ease forwards 0.2s;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(63, 247, 255, 0.08), transparent);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        /* Logo Container - Lurus Horizontal */
+        .logos-container {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .logo-link {
+            text-decoration: none;
+            display: block;
+        }
+
+        .logo-box {
+            width: 110px;
+            height: 110px;
+            background: #ffffff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--primary-cyan);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.15);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .logo-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(63, 247, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .logo-link:hover .logo-box {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(63, 247, 255, 0.25);
+            border-color: var(--primary-blue);
+        }
+
+        .logo-link:hover .logo-box::before {
+            opacity: 1;
+        }
+
+        .logo-link:active .logo-box {
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 15px;
+            transition: all 0.4s ease;
+        }
+
+        .logo-link:hover .logo-box img {
+            transform: scale(1.08);
+        }
+
+        .logo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            text-align: center;
+            color: var(--primary-blue);
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        /* Connector Line */
+        .logo-connector {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-blue));
+            position: relative;
+            margin: 0 -5px;
+        }
+
+        .logo-connector::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: var(--primary-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-cyan);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 0.6; 
+                transform: translate(-50%, -50%) scale(1); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1.3); 
+            }
+        }
+
+        .university-info h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .university-info h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--primary-cyan);
+            border-radius: 10px;
+        }
+
+        .university-info p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        /* Welcome Section with Typewriter */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 4.5rem;
+            padding: 3rem 2rem;
+            opacity: 1;
+        }
+
+        .welcome-section h2 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.5px;
+            min-height: 4rem;
+            transition: opacity 0.5s ease;
+        }
+
+        .welcome-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary-cyan), transparent);
+        }
+
+        .welcome-section p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            min-height: 2.5rem;
+            transition: opacity 0.5s ease;
+        }
+
+        /* White Cards with Blue Accent */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+            perspective: 1000px;
+        }
+
+        .app-card {
+            background: #ffffff;
+            border-radius: 25px;
+            padding: 2.8rem 2.2rem;
+            text-align: center;
+            border: 2px solid var(--light-blue);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(60px);
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08);
+            text-decoration: none;
+            display: block;
+            color: var(--text-dark);
+        }
+
+        .app-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(63, 247, 255, 0.05), rgba(14, 165, 233, 0.05));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 0;
+        }
+
+        .app-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(63, 247, 255, 0.15), transparent);
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+
+        .app-card:hover::after {
+            width: 400%;
+            height: 400%;
+        }
+
+        .app-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 20px 50px rgba(63, 247, 255, 0.2);
+        }
+
+        .app-card:hover::before {
+            opacity: 1;
+        }
+
+        .app-card:active {
+            transform: translateY(-12px) scale(1.01);
+        }
+
+        /* Blue Gradient Icon */
+        .app-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1.8rem;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-blue));
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 10px 30px rgba(63, 247, 255, 0.25);
+        }
+
+        .app-icon::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, var(--primary-cyan), transparent, var(--primary-blue));
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .app-card:hover .app-icon {
+            transform: rotateY(360deg) scale(1.12);
+            box-shadow: 0 15px 40px rgba(63, 247, 255, 0.4);
+        }
+
+        .app-card:hover .app-icon::before {
+            opacity: 1;
+        }
+
+        .app-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.9rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+
+        .app-card:hover h3 {
+            color: var(--primary-blue);
+            transform: scale(1.05);
+        }
+
+        .app-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s ease;
+            line-height: 1.7;
+        }
+
+        .app-card:hover p {
+            color: var(--text-dark);
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(63, 247, 255, 0.3);
+            transform: scale(0);
+            animation: rippleEffect 0.7s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(5);
+                opacity: 0;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: -150px;
+            right: 30px;
+            background: #ffffff;
+            color: var(--text-dark);
+            padding: 1.4rem 2.3rem;
+            border-radius: 18px;
+            font-weight: 600;
+            font-size: 1rem;
+            z-index: 10000;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 10px 40px rgba(14, 165, 233, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 2px solid var(--light-blue);
+        }
+
+        .toast.show {
+            bottom: 40px;
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .toast i {
+            font-size: 1.7rem;
+            color: var(--primary-cyan);
+            animation: iconPulse 1s ease infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2.8rem 2rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            background: #ffffff;
+            border-radius: 25px;
+            position: relative;
+            margin-top: 4rem;
+            border: 2px solid var(--light-blue);
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08);
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-cyan), transparent);
+            animation: lineGlow 3s ease infinite;
+        }
+
+        @keyframes lineGlow {
+            0%, 100% { width: 0; }
+            50% { width: 50%; }
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer .hashtag {
+            color: var(--primary-cyan);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-blue));
+            z-index: 9999;
+            transition: width 0.1s ease;
+            box-shadow: 0 2px 10px rgba(63, 247, 255, 0.3);
+        }
+
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #ffffff, #e0f2fe);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            z-index: 10001;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 70px;
+            height: 70px;
+            border: 5px solid var(--light-blue);
+            border-top-color: var(--primary-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(63, 247, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 9998;
+        }
+
+        .fab:hover {
+            transform: scale(1.12) rotate(90deg);
+            box-shadow: 0 12px 35px rgba(63, 247, 255, 0.5);
+        }
+
+        .fab i {
+            color: #ffffff;
+            font-size: 1.4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .header {
+                flex-direction: column;
+                padding: 1.8rem;
+            }
+
+            .header-left {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .logos-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .logo-box {
+                width: 85px;
+                height: 85px;
+            }
+
+            .welcome-section h2 {
+                font-size: 2.5rem;
+            }
+
+            .welcome-section p {
+                font-size: 1.1rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+
+            .app-card {
+                padding: 2.5rem 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .university-info h1 {
+                font-size: 1.8rem;
+            }
+
+            .welcome-section h2 {
+                font-size: 2rem;
+            }
+
+            .logo-box {
+                width: 70px;
+                height: 70px;
+            }
+
+            .logo-connector {
+                width: 35px;
+            }
+        }
+        /* Blinking Cursor untuk Typewriter Effect */
+.welcome-section h2::after {
+    content: '|';
+    position: absolute;
+    right: -15px;
+    animation: blink 0.7s infinite;
+    background: transparent;
+    box-shadow: none;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.welcome-section h2 {
+    position: relative;
+    display: inline-block;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <div class="loading-text">Loading ICLABS...</div>
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Grid Background -->
+    <div class="grid-background"></div>
+    
+    <!-- Blue Orbs -->
+    <div class="blue-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-rocket"></i>
+        <span id="toastMessage">Berhasil!</span>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <div class="logos-container">
+                    <!-- Logo Universitas Muslim Indonesia (Clickable) -->
+                    <a href="https://www.umi.ac.id" target="_blank" class="logo-link" title="Universitas Muslim Indonesia">
+                        <div class="logo-box">
+                            <!-- TARUH LOGO UMI DI SINI -->
+                            <!-- Contoh: <img src="path/to/logo-umi.png" alt="Logo UMI"> -->
+                            <div class="logo-placeholder">
+                                LOGO<br>UMI
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <div class="logo-connector"></div>
+                    
+                    <!-- Logo Fakultas Ilmu Komputer (Clickable) -->
+                    <a href="https://fikom.umi.ac.id" target="_blank" class="logo-link" title="Fakultas Ilmu Komputer">
+                        <div class="logo-box">
+                            <!-- TARUH LOGO FIKOM DI SINI -->
+                            <!-- Contoh: <img src="path/to/logo-fikom.png" alt="Logo FIKOM"> -->
+                            <div class="logo-placeholder">
+                                LOGO<br>FIKOM
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <div class="logo-connector"></div>
+                    
+                    <!-- Logo ICLABS -->
+                    <div class="logo-box">
+                        <!-- TARUH LOGO ICLABS DI SINI -->
+                        <!-- Contoh: <img src="path/to/logo-iclabs.png" alt="Logo ICLABS"> -->
+                        <div class="logo-placeholder">
+                            LOGO<br>ICLABS
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="university-info">
+                    <h1>ICLABS</h1>
+                    <p>Universitas Muslim Indonesia - Fakultas Ilmu Komputer</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Section with Typewriter Effect -->
+        <div class="welcome-section">
+            <h2></h2>
+            <p></p>
+        </div>
+
+        <!-- Apps Grid -->
+        <div class="apps-grid">
+            <!-- App 1 - Sistem Informasi Lab -->
+            <a href="#" class="app-card" data-title="Sistem Informasi Lab">
+                <div class="app-icon">💻</div>
+                <h3>Sistem Informasi Lab</h3>
+                <p>Kelola informasi dan data laboratorium secara terpusat dan efisien</p>
+            </a>
+
+            <!-- App 2 - Sistem Informasi Sumber Daya -->
+            <a href="#" class="app-card" data-title="Sistem Informasi Sumber Daya">
+                <div class="app-icon">📊</div>
+                <h3>Sistem Informasi Sumber Daya</h3>
+                <p>Manajemen sumber daya laboratorium dengan sistem yang terintegrasi</p>
+            </a>
+
+            <!-- App 3 - Monitoring Asisten (CA) -->
+            <a href="#" class="app-card" data-title="Monitoring Asisten (CA)">
+                <div class="app-icon">👥</div>
+                <h3>Monitoring Asisten (CA)</h3>
+                <p>Pantau kinerja dan aktivitas asisten laboratorium secara real-time</p>
+            </a>
+
+            <!-- App 4 - Monitoring Praktikum -->
+            <a href="#" class="app-card" data-title="Monitoring Praktikum">
+                <div class="app-icon">📋</div>
+                <h3>Monitoring Praktikum</h3>
+                <p>Lacak dan kelola kegiatan praktikum dengan mudah dan terorganisir</p>
+            </a>
+
+            <!-- App 5 - Peminjaman Lab -->
+            <a href="#" class="app-card" data-title="Peminjaman Lab">
+                <div class="app-icon">🔑</div>
+                <h3>Peminjaman Lab</h3>
+                <p>Sistem peminjaman ruang laboratorium yang praktis dan terjadwal</p>
+            </a>
+
+            <!-- App 6 - Pendaftaran Asisten -->
+            <a href="#" class="app-card" data-title="Pendaftaran Asisten">
+                <div class="app-icon">📝</div>
+                <h3>Pendaftaran Asisten</h3>
+                <p>Daftar sebagai asisten laboratorium dengan proses yang cepat</p>
+            </a>
+
+            <!-- App 7 - Inventori Barang -->
+            <a href="#" class="app-card" data-title="Inventori Barang">
+                <div class="app-icon">📦</div>
+                <h3>Inventori Barang</h3>
+                <p>Kelola inventaris peralatan lab dengan sistem tracking modern</p>
+            </a>
+
+            <!-- App 8 - Pembayaran Lab -->
+            <a href="#" class="app-card" data-title="Pembayaran Lab">
+                <div class="app-icon">💳</div>
+                <h3>Pembayaran Lab</h3>
+                <p>Sistem pembayaran laboratorium yang aman dan transparan</p>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 ICLABS - Universitas Muslim Indonesia</p>
+            <p>Fakultas Ilmu Komputer. All Rights Reserved.</p>
+            <p class="hashtag">#greenInnovation</p>
+        </div>
+    </div>
+
+    <!-- Main JavaScript -->
+    <script>
+        // ==================== TYPEWRITER EFFECT WITH LANGUAGE SWITCHING ====================
+      // ==================== TYPEWRITER EFFECT - CHARACTER BY CHARACTER ====================
+const texts = [
+    {
+        title: "Selamat Datang",
+        subtitle: "Sistem Laboratorium Komputer Terintegrasi - Platform terpadu untuk manajemen laboratorium komputer yang modern dan efisien"
+    },
+    {
+        title: "Welcome",
+        subtitle: "Integrated Computer Laboratory System - A unified platform for modern and efficient computer laboratory management"
+    }
+];
+
+let textIndex = 0;
+let charIndex = 0;
+let isTypingTitle = true;
+let isDeleting = false;
+
+function typeWriter() {
+    const titleElement = document.querySelector('.welcome-section h2');
+    const subtitleElement = document.querySelector('.welcome-section p');
+    const currentText = texts[textIndex];
+    
+    if (isTypingTitle) {
+        // Mengetik Title
+        if (!isDeleting && charIndex < currentText.title.length) {
+            titleElement.textContent += currentText.title.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, 100); // 100ms per karakter
+        } else if (!isDeleting && charIndex === currentText.title.length) {
+            // Title selesai, mulai subtitle
+            charIndex = 0;
+            isTypingTitle = false;
+            setTimeout(typeWriter, 500); // Jeda sebelum subtitle
+        }
+    } else {
+        // Mengetik Subtitle
+        if (!isDeleting && charIndex < currentText.subtitle.length) {
+            subtitleElement.textContent += currentText.subtitle.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, 50); // 50ms per karakter (lebih cepat)
+        } else if (!isDeleting && charIndex === currentText.subtitle.length) {
+            // Subtitle selesai, tunggu lalu ganti bahasa
+            setTimeout(() => {
+                isDeleting = true;
+                typeWriter();
+            }, 3000); // Tunggu 3 detik
+        } else if (isDeleting && subtitleElement.textContent.length > 0) {
+            // Hapus subtitle karakter per karakter
+            subtitleElement.textContent = subtitleElement.textContent.slice(0, -1);
+            setTimeout(typeWriter, 30); // Hapus cepat
+        } else if (isDeleting && subtitleElement.textContent.length === 0) {
+            // Subtitle terhapus, hapus title
+            if (titleElement.textContent.length > 0) {
+                titleElement.textContent = titleElement.textContent.slice(0, -1);
+                setTimeout(typeWriter, 30);
+            } else {
+                // Semua terhapus, ganti bahasa
+                textIndex = (textIndex + 1) % texts.length;
+                charIndex = 0;
+                isTypingTitle = true;
+                isDeleting = false;
+                setTimeout(typeWriter, 500);
+            }
+        }
+    }
+}
+
+// ==================== LOADING SCREEN ====================
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('loadingScreen').classList.add('hidden');
+        setTimeout(typeWriter, 500); // Mulai typewriter
+    }, 1200);
+});
+
+// ==================== SCROLL PROGRESS ====================
+window.addEventListener('scroll', () => {
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    scrollIndicator.style.width = scrolled + '%';
+});
+
+// ==================== SCROLL REVEAL ====================
+const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -80px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.classList.add('show');
+            }, index * 120);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.app-card').forEach(card => {
+    observer.observe(card);
+});
+
+// ==================== RIPPLE EFFECT ====================
+function createRipple(event) {
+    const card = event.currentTarget;
+    const ripple = document.createElement('span');
+    const rect = card.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('ripple');
+
+    card.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 700);
+}
+
+// ==================== APP CARD INTERACTIONS ====================
+const appCards = document.querySelectorAll('.app-card');
+
+appCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+        createRipple(e);
+        const title = this.getAttribute('data-title');
+        showToast(`🚀 Membuka ${title}...`);
+    });
+
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 25;
+        const rotateY = (centerX - x) / 25;
+        
+        card.style.transform = `translateY(-15px) scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1) rotateX(0) rotateY(0)';
+    });
+});
+
+// ==================== TOAST ====================
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    toastMessage.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ==================== KEYBOARD ====================
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.app-card').forEach(card => {
+            card.style.transform = 'translateY(0) scale(1) rotateX(0) rotateY(0)';
+        });
+    }
+    if (e.key === 'Home') {
+        e.preventDefault();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+});
+
+// ==================== FAB ====================
+window.addEventListener('scroll', () => {
+    const fab = document.querySelector('.fab');
+    if (window.scrollY > 300) {
+        fab.style.opacity = '1';
+        fab.style.pointerEvents = 'all';
+    } else {
+        fab.style.opacity = '0';
+        fab.style.pointerEvents = 'none';
+    }
+});
+
+document.querySelector('.fab').style.opacity = '0';
+document.querySelector('.fab').style.pointerEvents = 'none';
+
+    </script>
+</body>
+</html>
